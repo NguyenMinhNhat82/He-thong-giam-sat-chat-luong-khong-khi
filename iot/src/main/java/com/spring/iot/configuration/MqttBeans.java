@@ -1,7 +1,9 @@
 package com.spring.iot.configuration;
 
 
+import com.spring.iot.dto.Status;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -17,10 +19,18 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 
 
 @Configuration
 public class MqttBeans {
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
     @Bean
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
@@ -29,9 +39,8 @@ public class MqttBeans {
         options.setServerURIs(new String[] { "tcp://io.adafruit.com:1883" });
         options.setCleanSession(true);
         options.setUserName("nhatnguyenn0802");
-
-        options.setPassword("aio_zRdS60MkjDjQTtwuEf5aDE7UucAR".toCharArray());
         options.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);
+        options.setPassword("aio_AtNS753hO6KP8PxBsjtIwMRGkOeg".toCharArray());
 
         factory.setConnectionOptions(options);
 
@@ -51,7 +60,6 @@ public class MqttBeans {
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(2);
         adapter.setOutputChannel(mqttInputChannel());
-        System.out.println("Connect successfully");
         return adapter;
     }
 
@@ -64,7 +72,10 @@ public class MqttBeans {
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 String topic = message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC).toString();
-                //Handle dữ liệu server gửi tới ở đây
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Calendar cal = Calendar.getInstance();
+                com.spring.iot.dto.Message m =  new com.spring.iot.dto.Message("server","client",message.getPayload().toString(),dateFormat.format(cal.getTime()), Status.MESSAGE);
+                simpMessagingTemplate.convertAndSendToUser(m.getReceiverName(),"/private",m);
                 System.out.println(message.getPayload());
             }
 
