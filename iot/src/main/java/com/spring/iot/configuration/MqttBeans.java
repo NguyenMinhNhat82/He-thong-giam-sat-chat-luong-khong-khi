@@ -23,7 +23,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 
@@ -36,11 +35,10 @@ public class MqttBeans {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
         MqttConnectOptions options = new MqttConnectOptions();
 
-        options.setServerURIs(new String[] { "tcp://io.adafruit.com:1883" });
+        options.setServerURIs(new String[] { "tcp://broker.ou-cs.tech:1883" });
         options.setCleanSession(true);
-        options.setUserName("nhatnguyenn0802");
-        options.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);
-        options.setPassword("aio_AtNS753hO6KP8PxBsjtIwMRGkOeg".toCharArray());
+        options.setUserName("nhom1");
+        options.setPassword("nhom1IoT".toCharArray());
 
         factory.setConnectionOptions(options);
 
@@ -54,7 +52,7 @@ public class MqttBeans {
     @Bean
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter("serverIn",
-                mqttClientFactory(), "nhatnguyenn0802/feeds/cambien1");
+                mqttClientFactory(), "nhom2/stations");
 
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
