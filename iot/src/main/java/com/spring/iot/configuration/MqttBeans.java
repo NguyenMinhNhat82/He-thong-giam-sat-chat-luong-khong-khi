@@ -41,6 +41,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.spring.iot.util.Utils.historyStation1;
 import static com.spring.iot.util.Utils.historyValue;
 
 
@@ -64,6 +65,7 @@ public class MqttBeans {
         for(Station s: stationService.getAllStation()){
             historyValue.put(s.getId(),s);
         }
+        historyStation1.add(stationService.findStattionByID("station1"));
         return factory;
     }
 
@@ -110,6 +112,16 @@ public class MqttBeans {
                                 t.setId("station" + i);
                                 stationService.addOrUpdate(t);
                                 historyValue.put("station"+i,t);
+                                if(historyStation1.size() < 4 && t.getId() == "station1")
+                                {
+                                    historyStation1.add(t);
+                                }
+                                else
+                                if(historyStation1.size() == 4 && t.getId() == "station1")
+                                {
+                                    historyStation1.add(t);
+//                                    historyStation1.remove(0);
+                                }
                                 com.spring.iot.dto.Message m = new com.spring.iot.dto.Message("server", "client", message.getPayload().toString(), dateFormat.format(cal.getTime()), Status.MESSAGE);
                                 simpMessagingTemplate.convertAndSendToUser(m.getReceiverName(), "/private", m);
                             }
