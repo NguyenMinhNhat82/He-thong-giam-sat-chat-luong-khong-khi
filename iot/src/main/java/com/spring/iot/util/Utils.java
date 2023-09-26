@@ -15,4 +15,5 @@ public class Utils {
         put("station5", null);
     }};
     public static ArrayList<Station> historyStation1 = new ArrayList<>();
+    public static  Double minCO = 0.0, MaxCO =0.0;
 }

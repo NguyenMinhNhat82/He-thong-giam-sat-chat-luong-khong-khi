@@ -61,6 +61,8 @@ public class MqttBeans {
         options.setCleanSession(true);
         options.setUserName("nhom1");
         options.setPassword("nhom1IoT".toCharArray());
+        options.setAutomaticReconnect(true);
+        options.setKeepAliveInterval(10);
         factory.setConnectionOptions(options);
         for(Station s: stationService.getAllStation()){
             historyValue.put(s.getId(),s);
@@ -85,6 +87,7 @@ public class MqttBeans {
         adapter.setOutputChannel(mqttInputChannel());
         return adapter;
     }
+
 
 
     @Bean
@@ -112,21 +115,23 @@ public class MqttBeans {
                                 t.setId("station" + i);
                                 stationService.addOrUpdate(t);
                                 historyValue.put("station"+i,t);
-                                if(historyStation1.size() < 4 && t.getId() == "station1")
+                                if(historyStation1.size() < 4 && t.getId().equals("station1"))
                                 {
                                     historyStation1.add(t);
                                 }
                                 else
-                                if(historyStation1.size() == 4 && t.getId() == "station1")
+                                if(historyStation1.size() == 4 && t.getId().equals("station1"))
                                 {
                                     historyStation1.add(t);
-//                                    historyStation1.remove(0);
+                                    historyStation1.remove(0);
                                 }
-                                com.spring.iot.dto.Message m = new com.spring.iot.dto.Message("server", "client", message.getPayload().toString(), dateFormat.format(cal.getTime()), Status.MESSAGE);
-                                simpMessagingTemplate.convertAndSendToUser(m.getReceiverName(), "/private", m);
+
                             }
                         }
                     }
+                    com.spring.iot.dto.Message m = new com.spring.iot.dto.Message("server", "client", message.getPayload().toString(), dateFormat.format(cal.getTime()), Status.MESSAGE);
+                    simpMessagingTemplate.convertAndSendToUser(m.getReceiverName(), "/private", m);
+                    System.out.println(message.getPayload());
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -149,7 +154,7 @@ public class MqttBeans {
         //clientId is generated using a random number
         MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("serverOut", mqttClientFactory());
         messageHandler.setAsync(true);
-        messageHandler.setDefaultTopic("nhatnguyenn0802/feeds/cambien1");
+        messageHandler.setDefaultTopic("nhom2/stations");
         messageHandler.setDefaultRetained(false);
         return messageHandler;
     }

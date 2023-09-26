@@ -23,4 +23,7 @@ public class StationService {
     public List<Station> getAllStation(){
         return stationRepository.findAll();
     }
+    public  List<Station> allListStaion(){
+        return this.stationRepository.findAll();
+    }
 }

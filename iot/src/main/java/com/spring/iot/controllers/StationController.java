@@ -2,11 +2,15 @@ package com.spring.iot.controllers;
 
 
 import com.spring.iot.entities.Station;
+import com.spring.iot.services.StationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -17,15 +21,34 @@ import static com.spring.iot.util.Utils.historyValue;
 @Controller
 public class StationController {
 
-    @GetMapping("/api/data")
+    @Autowired
+    private StationService stationService;
+
+    @GetMapping("/data")
     @CrossOrigin
     ResponseEntity<Map<String, Station>> getdata(){
         Map<String, Station> s = historyValue;
         return new ResponseEntity<>(historyValue, HttpStatus.OK);
     }
-    @GetMapping("/api/historystation1")
+    @GetMapping("/api/history/{id}")
     @CrossOrigin
-    ResponseEntity <List<Station>> getHistoryStation1 (){
-        return new ResponseEntity<>(historyStation1,HttpStatus.OK);
+    ResponseEntity <List<Station>> getHistoryStation1 (@PathVariable String id){
+        if(id.equals("station1"))
+            return new ResponseEntity<>(historyStation1,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
     }
+
+    @GetMapping("/api/current/{id}")
+    @CrossOrigin
+    ResponseEntity<Station> currentStatusStation(@PathVariable String id){
+        return  new ResponseEntity<>(stationService.findStattionByID(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/api/all-staion")
+    @CrossOrigin
+    ResponseEntity<List<Station>> getAllStation(){
+        return new ResponseEntity<>(stationService.getAllStation(),HttpStatus.OK);
+    }
+
 }
