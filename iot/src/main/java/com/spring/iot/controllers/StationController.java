@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Map;
 
-import static com.spring.iot.util.Utils.historyStation1;
-import static com.spring.iot.util.Utils.historyValue;
+import static com.spring.iot.util.Utils.*;
 
 @Controller
 public class StationController {
@@ -32,17 +31,63 @@ public class StationController {
     }
     @GetMapping("/api/history/{id}")
     @CrossOrigin
-    ResponseEntity <List<Station>> getHistoryStation1 (@PathVariable String id){
+    ResponseEntity <List<Station>> getHistoryStation (@PathVariable String id){
         if(id.equals("station1"))
             return new ResponseEntity<>(historyStation1,HttpStatus.OK);
         else
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            if(id.equals("station2"))
+                return new ResponseEntity<>(historyStation2,HttpStatus.OK);
+            else
+                if (id.equals("station3"))
+                    return new ResponseEntity<>(historyStation3,HttpStatus.OK);
+                else
+                    if (id.equals("station4"))
+                        return new ResponseEntity<>(historyStation4,HttpStatus.OK);
+                    else
+                        if (id.equals("station5"))
+                            return new ResponseEntity<>(historyStation5,HttpStatus.OK);
+                        else
+                            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
     }
-
-    @GetMapping("/api/current/{id}")
+    @GetMapping("/api/maxCO/{id}")
     @CrossOrigin
-    ResponseEntity<Station> currentStatusStation(@PathVariable String id){
-        return  new ResponseEntity<>(stationService.findStattionByID(id),HttpStatus.OK);
+    ResponseEntity<Float> maxCO(@PathVariable String id){
+        if (id.equals("station1"))
+            return new ResponseEntity<>(MaxCO1,HttpStatus.OK);
+        else
+            if (id.equals("station2"))
+                return new ResponseEntity<>(MaxCO2,HttpStatus.OK);
+            else
+            if (id.equals("station3"))
+                return new ResponseEntity<>(MaxCO3,HttpStatus.OK);
+            else
+            if (id.equals("station4"))
+                return new ResponseEntity<>(MaxCO4,HttpStatus.OK);
+            else
+            if (id.equals("station5"))
+                return new ResponseEntity<>(MaxCO5,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+    }
+    @GetMapping("/api/minCO/{id}")
+    @CrossOrigin
+    ResponseEntity<Float> MinCO(@PathVariable String id){
+        if (id.equals("station1"))
+            return new ResponseEntity<>(MinCO1,HttpStatus.OK);
+        else
+        if (id.equals("station2"))
+            return new ResponseEntity<>(MinCO2,HttpStatus.OK);
+        else
+        if (id.equals("station3"))
+            return new ResponseEntity<>(MinCO3,HttpStatus.OK);
+        else
+        if (id.equals("station4"))
+            return new ResponseEntity<>(MinCO4,HttpStatus.OK);
+        else
+        if (id.equals("station5"))
+            return new ResponseEntity<>(MinCO5,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/api/all-staion")
