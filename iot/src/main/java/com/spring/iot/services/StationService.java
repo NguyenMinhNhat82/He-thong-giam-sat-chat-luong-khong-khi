@@ -26,4 +26,6 @@ public class StationService {
     public  List<Station> allListStaion(){
         return this.stationRepository.findAll();
     }
+
+
 }

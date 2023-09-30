@@ -96,4 +96,10 @@ public class StationController {
         return new ResponseEntity<>(stationService.getAllStation(),HttpStatus.OK);
     }
 
+    @GetMapping("/api/current/{id}")
+    @CrossOrigin
+    ResponseEntity<Station> currentStatusStation(@PathVariable String id){
+        return  new ResponseEntity<>(stationService.findStattionByID(id),HttpStatus.OK);
+    }
+
 }
