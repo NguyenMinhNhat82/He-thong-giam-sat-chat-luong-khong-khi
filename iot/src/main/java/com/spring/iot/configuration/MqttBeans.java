@@ -57,7 +57,7 @@ public class MqttBeans {
         options.setUserName("nhom2");
         options.setPassword("nhom2IoT".toCharArray());
         options.setAutomaticReconnect(true);
-        options.setKeepAliveInterval(10);
+        options.setKeepAliveInterval(100);
         factory.setConnectionOptions(options);
         for(Station s: stationService.getAllStation()){
             historyValue.put(s.getId(),s);
@@ -88,6 +88,11 @@ public class MqttBeans {
         historyStation3.add(stationService.findStattionByID("station3"));
         historyStation4.add(stationService.findStattionByID("station4"));
         historyStation5.add(stationService.findStattionByID("station5"));
+        Station1.add(stationService.findStattionByID("station1"));
+        Station2.add(stationService.findStattionByID("station2"));
+        Station3.add(stationService.findStattionByID("station3"));
+        Station4.add(stationService.findStattionByID("station4"));
+        Station5.add(stationService.findStattionByID("station5"));
         return factory;
     }
 
@@ -173,6 +178,71 @@ public class MqttBeans {
                 }
         }
     }
+    public void DataStation (String id, Station t)
+    {
+        switch (id)
+        {
+            case "station1":
+                if(Station1.size() < 96 && t.getId().equals(id))
+                {
+                    Station1.add(t);
+                }
+                else
+                if(Station1.size() == 96 && t.getId().equals(id))
+                {
+                    Station1.add(t);
+                    Station1.remove(0);
+                }
+                break;
+            case "station2":
+                if(Station2.size() < 96 && t.getId().equals(id))
+                {
+                    Station2.add(t);
+                }
+                else
+                if(Station2.size() == 96 && t.getId().equals(id))
+                {
+                    Station2.add(t);
+                    Station2.remove(0);
+                }
+                break;
+            case "station3":
+                if(Station3.size() < 96 && t.getId().equals(id))
+                {
+                    Station3.add(t);
+                }
+                else
+                if(Station3.size() == 96 && t.getId().equals(id))
+                {
+                    Station3.add(t);
+                    Station3.remove(0);
+                }
+                break;
+            case "station4":
+                if(Station4.size() < 96 && t.getId().equals(id))
+                {
+                    Station4.add(t);
+                }
+                else
+                if(Station4.size() == 96 && t.getId().equals(id))
+                {
+                    Station4.add(t);
+                    Station4.remove(0);
+                }
+                break;
+            default:
+                if(Station5.size() < 96 && t.getId().equals(id))
+                {
+                    Station5.add(t);
+                }
+                else
+                if(Station5.size() == 96 && t.getId().equals(id))
+                {
+                    Station5.add(t);
+                    Station5.remove(0);
+                }
+        }
+    }
     public void getminmaxCO(String id, Station t)
     {
         switch (id)
@@ -236,6 +306,7 @@ public class MqttBeans {
                                 historyValue.put("station"+i,t);
                                 getminmaxCO(t.getId(),t);
                                 updateData(t.getId(),t);
+                                DataStation(t.getId(),t);
                             }
                         }
                     }

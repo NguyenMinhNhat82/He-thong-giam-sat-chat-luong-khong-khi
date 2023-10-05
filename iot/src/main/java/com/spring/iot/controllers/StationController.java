@@ -49,6 +49,26 @@ public class StationController {
                         else
                             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
     }
+    @GetMapping("/api/datastation/{id}")
+    @CrossOrigin
+    ResponseEntity <List<Station>> getDataStation (@PathVariable String id){
+        if(id.equals("station1"))
+            return new ResponseEntity<>(Station1,HttpStatus.OK);
+        else
+        if(id.equals("station2"))
+            return new ResponseEntity<>(Station2,HttpStatus.OK);
+        else
+        if (id.equals("station3"))
+            return new ResponseEntity<>(Station3,HttpStatus.OK);
+        else
+        if (id.equals("station4"))
+            return new ResponseEntity<>(Station4,HttpStatus.OK);
+        else
+        if (id.equals("station5"))
+            return new ResponseEntity<>(Station5,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+    }
     @GetMapping("/api/maxCO/{id}")
     @CrossOrigin
     ResponseEntity<Float> maxCO(@PathVariable String id){
