@@ -28,8 +28,9 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/authenticate", "/sign-up","/hello",
-                        "/ws/**","/expirationOfToken/**","/refreshtoken/**").permitAll()
+                .requestMatchers("/authenticate", "/sign-up","/hello","/checkusername/",
+                        "/ws/**","/expirationOfToken/**","/refreshtoken/**","/generateOtp"
+                        ,"/token-sign-up","/generateOtp","/validateOtp").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/api/**","/data")
                 .authenticated().and()
