@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,43 +72,31 @@ public class StationController {
     }
     @GetMapping("/api/maxCO/{id}")
     @CrossOrigin
-    ResponseEntity<Float> maxCO(@PathVariable String id){
-        if (id.equals("station1"))
-            return new ResponseEntity<>(MaxCO1,HttpStatus.OK);
-        else
-            if (id.equals("station2"))
-                return new ResponseEntity<>(MaxCO2,HttpStatus.OK);
-            else
-            if (id.equals("station3"))
-                return new ResponseEntity<>(MaxCO3,HttpStatus.OK);
-            else
-            if (id.equals("station4"))
-                return new ResponseEntity<>(MaxCO4,HttpStatus.OK);
-            else
-            if (id.equals("station5"))
-                return new ResponseEntity<>(MaxCO5,HttpStatus.OK);
-            else
-                return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+    ResponseEntity<Map<String,Float>> maxCO(@PathVariable String id){
+        Map<String,Float> res = new HashMap<>();
+        res.put("co",MaxCO.get(id));
+        res.put("no",MaxNO.get(id));
+        res.put("no2",MaxNO2.get(id));
+        res.put("o3",MaxO3.get(id));
+        res.put("so2",MaxSO2.get(id));
+        res.put("pm25",MaxPM25.get(id));
+        res.put("pm10",MaxPM10.get(id));
+        res.put("nh3",MaxNH3.get(id));
+        return new ResponseEntity<>(res,HttpStatus.OK);
     }
     @GetMapping("/api/minCO/{id}")
     @CrossOrigin
-    ResponseEntity<Float> MinCO(@PathVariable String id){
-        if (id.equals("station1"))
-            return new ResponseEntity<>(MinCO1,HttpStatus.OK);
-        else
-        if (id.equals("station2"))
-            return new ResponseEntity<>(MinCO2,HttpStatus.OK);
-        else
-        if (id.equals("station3"))
-            return new ResponseEntity<>(MinCO3,HttpStatus.OK);
-        else
-        if (id.equals("station4"))
-            return new ResponseEntity<>(MinCO4,HttpStatus.OK);
-        else
-        if (id.equals("station5"))
-            return new ResponseEntity<>(MinCO5,HttpStatus.OK);
-        else
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+    ResponseEntity<Map<String,Float>> MinCO(@PathVariable String id){
+        Map<String,Float> res = new HashMap<>();
+        res.put("co",MinCO.get(id));
+        res.put("no",MinNO.get(id));
+        res.put("no2",MinNO2.get(id));
+        res.put("o3",MinO3.get(id));
+        res.put("so2",MinSO2.get(id));
+        res.put("pm25",MinPM25.get(id));
+        res.put("pm10",MinPM10.get(id));
+        res.put("nh3",MinNH3.get(id));
+        return new ResponseEntity<>(res,HttpStatus.OK);
     }
 
     @GetMapping("/api/all-staion")

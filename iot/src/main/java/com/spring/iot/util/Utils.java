@@ -9,7 +9,7 @@ import java.util.Map;
 public class Utils {
     public static Map<String, Station> historyValue = new HashMap<String, Station>() {{
         put("station1", null);
-        put("station2", null);
+        put("station2",null);
         put("station3", null);
         put("station4", null);
         put("station5", null);
@@ -25,9 +25,116 @@ public class Utils {
     public static ArrayList<Station> Station3 = new ArrayList<>();
     public static ArrayList<Station> Station4 = new ArrayList<>();
     public static ArrayList<Station> Station5 = new ArrayList<>();
-    public static  Float MinCO1 = 5000.0f , MaxCO1 = 0.0f ;
-    public static  Float MinCO2 = 5000.0f , MaxCO2 = 0.0f ;
-    public static  Float MinCO3 = 5000.0f , MaxCO3 = 0.0f ;
-    public static  Float MinCO4 = 5000.0f , MaxCO4 = 0.0f ;
-    public static  Float MinCO5 = 5000.0f , MaxCO5 = 0.0f ;
+    public static Map<String,Float> MinCO = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxCO = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String,Float> MinNO = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxNO = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String,Float> MinNO2 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxNO2 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String,Float> MinO3 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxO3 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String,Float> MinSO2 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxSO2 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String,Float> MinPM25 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxPM25 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String,Float> MinPM10 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxPM10 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String,Float> MinNH3 = new HashMap<>(){{
+        put("station1", 0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
+    public static Map<String, Float> MaxNH3 = new HashMap<>(){{
+        put("station1",0f);
+        put("station2", 0f);
+        put("station3", 0f);
+        put("station4", 0f);
+        put("station5", 0f);
+    }};;
 }

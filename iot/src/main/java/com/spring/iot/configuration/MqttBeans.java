@@ -61,26 +61,30 @@ public class MqttBeans {
         factory.setConnectionOptions(options);
         for(Station s: stationService.getAllStation()){
             historyValue.put(s.getId(),s);
-            if (s.getId().equals("station1")) {
-                MinCO1 = s.getComponent().getCo();
-                MaxCO1 = s.getComponent().getCo();
-            }
-            if (s.getId().equals("station2")) {
-                MinCO2 = s.getComponent().getCo();
-                MaxCO2 = s.getComponent().getCo();
-            }
-            if (s.getId().equals("station3")) {
-                MinCO3 = s.getComponent().getCo();
-                MaxCO3 = s.getComponent().getCo();
-            }
-            if (s.getId().equals("station4")) {
-                MinCO4 = s.getComponent().getCo();
-                MaxCO4 = s.getComponent().getCo();
-            }
-            if (s.getId().equals("station5")) {
-                MinCO5 = s.getComponent().getCo();
-                MaxCO5 = s.getComponent().getCo();
-            }
+            MinCO.put(s.getId(),s.getComponent().getCo());
+            MaxCO.put(s.getId(),s.getComponent().getCo());
+
+            MinNO.put(s.getId(),s.getComponent().getNo());
+            MaxNO.put(s.getId(),s.getComponent().getNo());
+
+            MinNO2.put(s.getId(),s.getComponent().getNo2());
+            MaxNO2.put(s.getId(),s.getComponent().getNo2());
+
+            MinO3.put(s.getId(),s.getComponent().getO3());
+            MaxO3.put(s.getId(),s.getComponent().getO3());
+
+            MinSO2.put(s.getId(),s.getComponent().getSo2());
+            MaxSO2.put(s.getId(),s.getComponent().getSo2());
+
+            MinPM25.put(s.getId(),s.getComponent().getPm2_5());
+            MaxPM25.put(s.getId(),s.getComponent().getPm2_5());
+
+            MinPM10.put(s.getId(),s.getComponent().getPm10());
+            MaxPM10.put(s.getId(),s.getComponent().getPm10());
+
+            MinNH3.put(s.getId(),s.getComponent().getNh3());
+            MaxNH3.put(s.getId(),s.getComponent().getNh3());
+
 
         }
         historyStation1.add(stationService.findStattionByID("station1"));
@@ -245,38 +249,45 @@ public class MqttBeans {
     }
     public void getminmaxCO(String id, Station t)
     {
-        switch (id)
-        {
-            case "station1":
-                if(t.getId().equals(id) && t.getComponent().getCo() >= MaxCO1)
-                    MaxCO1 = t.getComponent().getCo();
-                if(t.getId().equals(id) && t.getComponent().getCo() <= MinCO1)
-                    MinCO1 = t.getComponent().getCo();
-                break;
-            case "station2":
-                if(t.getId().equals(id) && t.getComponent().getCo() >= MaxCO2)
-                    MaxCO2 = t.getComponent().getCo();
-                if(t.getId().equals(id) && t.getComponent().getCo() <= MinCO2)
-                    MinCO2 = t.getComponent().getCo();
-                break;
-            case "station3":
-                if(t.getId().equals(id) && t.getComponent().getCo() >= MaxCO3)
-                    MaxCO3 = t.getComponent().getCo();
-                if(t.getId().equals(id) && t.getComponent().getCo() <= MinCO3)
-                    MinCO3 = t.getComponent().getCo();
-                break;
-            case "station4":
-                if(t.getId().equals(id) && t.getComponent().getCo() >= MaxCO4)
-                    MaxCO4 = t.getComponent().getCo();
-                if(t.getId().equals(id) && t.getComponent().getCo() <= MinCO4)
-                    MinCO4 = t.getComponent().getCo();
-                break;
-            default:
-                if(t.getId().equals(id) && t.getComponent().getCo() >= MaxCO5)
-                    MaxCO5 = t.getComponent().getCo();
-                if(t.getId().equals(id) && t.getComponent().getCo() <= MinCO5)
-                    MinCO5 = t.getComponent().getCo();
-        }
+        if(t.getId().equals(id) && t.getComponent().getCo() > MaxCO.get(id))
+            MaxCO.put(id,t.getComponent().getCo());
+        if(t.getId().equals(id) && t.getComponent().getCo() < MinCO.get(id))
+            MinCO.put(id,t.getComponent().getCo());
+
+        if(t.getId().equals(id) && t.getComponent().getNo() > MaxNO.get(id))
+            MaxNO.put(id,t.getComponent().getNo());
+        if(t.getId().equals(id) && t.getComponent().getNo() < MinNO.get(id))
+            MinNO.put(id,t.getComponent().getNo());
+
+        if(t.getId().equals(id) && t.getComponent().getNo2() > MaxNO2.get(id))
+            MaxNO2.put(id,t.getComponent().getNo2());
+        if(t.getId().equals(id) && t.getComponent().getNo2() < MinNO2.get(id))
+            MinNO2.put(id,t.getComponent().getNo2());
+
+        if(t.getId().equals(id) && t.getComponent().getO3() > MaxO3.get(id))
+            MaxO3.put(id,t.getComponent().getO3());
+        if(t.getId().equals(id) && t.getComponent().getO3() < MinO3.get(id))
+            MinO3.put(id,t.getComponent().getO3());
+
+        if(t.getId().equals(id) && t.getComponent().getSo2() > MaxSO2.get(id))
+            MaxSO2.put(id,t.getComponent().getSo2());
+        if(t.getId().equals(id) && t.getComponent().getSo2() < MinSO2.get(id))
+            MinSO2.put(id,t.getComponent().getSo2());
+
+        if(t.getId().equals(id) && t.getComponent().getPm2_5() > MaxPM25.get(id))
+            MaxPM25.put(id,t.getComponent().getPm2_5());
+        if(t.getId().equals(id) && t.getComponent().getPm2_5() < MinPM25.get(id))
+            MinPM25.put(id,t.getComponent().getPm2_5());
+
+        if(t.getId().equals(id) && t.getComponent().getPm10() > MaxPM10.get(id))
+            MaxPM10.put(id,t.getComponent().getPm10());
+        if(t.getId().equals(id) && t.getComponent().getPm10() < MinPM10.get(id))
+            MinPM10.put(id,t.getComponent().getPm10());
+
+        if(t.getId().equals(id) && t.getComponent().getNh3() >= MaxNH3.get(id))
+            MaxNH3.put(id,t.getComponent().getNh3());
+        if(t.getId().equals(id) && t.getComponent().getNh3() <= MinNH3.get(id))
+            MinNH3.put(id,t.getComponent().getNh3());
     }
 
     @Bean
